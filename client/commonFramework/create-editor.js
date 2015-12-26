@@ -20,6 +20,54 @@ window.common = (function(global) {
     return common;
   }
 
+  var htmlEditor = CodeMirror.fromTextArea(
+    document.getElementById('htmlCode'),
+    {
+      lint: true,
+      lineNumbers: true,
+      mode: 'text/html',
+      theme: 'monokai',
+      runnable: true,
+      matchBrackets: true,
+      autoCloseBrackets: true,
+      scrollbarStyle: 'null',
+      lineWrapping: true,
+      gutters: ['CodeMirror-lint-markers']
+    }
+  );
+
+  var cssEditor = CodeMirror.fromTextArea(
+    document.getElementById('cssCode'),
+    {
+      lint: true,
+      lineNumbers: true,
+      mode: 'css',
+      theme: 'monokai',
+      runnable: true,
+      matchBrackets: true,
+      autoCloseBrackets: true,
+      scrollbarStyle: 'null',
+      lineWrapping: true,
+      gutters: ['CodeMirror-lint-markers']
+    }
+  );
+
+  var jsEditor = CodeMirror.fromTextArea(
+    document.getElementById('jsCode'),
+    {
+      lint: true,
+      lineNumbers: true,
+      mode: 'javascript',
+      theme: 'monokai',
+      runnable: true,
+      matchBrackets: true,
+      autoCloseBrackets: true,
+      scrollbarStyle: 'null',
+      lineWrapping: true,
+      gutters: ['CodeMirror-lint-markers']
+    }
+  );
+
   var editor = CodeMirror.fromTextArea(
     document.getElementById('codeEditor'),
     {
@@ -108,6 +156,54 @@ window.common = (function(global) {
   });
 
   common.editor = editor;
+  common.htmlCode = htmlEditor;
+  common.cssCode = cssEditor;
+  common.jsCode = jsEditor;
+
+  common.init.push(function(){
+    $(document).ready(function(){
+      $(common.htmlCode.display.wrapper).addClass('partEditor');
+      $(common.htmlCode.display.wrapper).addClass('htmlCode');
+
+      $(common.cssCode.display.wrapper).addClass('partEditor');
+      $(common.cssCode.display.wrapper).addClass('cssCode');
+      $('.cssCode').css('margin-top', "-" + $(common.cssCode.display.wrapper).css('height'));
+
+      $(common.jsCode.display.wrapper).addClass('partEditor');
+      $(common.jsCode.display.wrapper).addClass('jsCode');
+      $('.jsCode').css('margin-top', "-" + $(common.jsCode.display.wrapper).css('height'));
+    });
+  });
+
+  common.init.push(function(){
+    $(document).ready(function(){
+      $($('.editorHeader').children()[0]).css('background-color', 'green').css('color', 'white');
+      $($('.editorHeader').children()[0]).on('click', function(){
+        $('.htmlCode').css('z-index', '2');
+        $('.cssCode').css('z-index', '1');
+        $('.jsCode').css('z-index', '1')
+        $($('.editorHeader').children()[0]).css('background-color', 'green').css('color', 'white');
+        $($('.editorHeader').children()[1]).css('background-color', '').css('color', 'black');
+        $($('.editorHeader').children()[2]).css('background-color', '').css('color', 'black');
+      });
+      $($('.editorHeader').children()[1]).on('click', function(){
+        $('.htmlCode').css('z-index', '1');
+        $('.cssCode').css('z-index', '2');
+        $('.jsCode').css('z-index', '1');
+        $($('.editorHeader').children()[0]).css('background-color', '').css('color', 'black');
+        $($('.editorHeader').children()[1]).css('background-color', 'green').css('color', 'white');
+        $($('.editorHeader').children()[2]).css('background-color', '').css('color', 'black');
+      });
+      $($('.editorHeader').children()[2]).on('click', function(){
+        $('.htmlCode').css('z-index', '1');
+        $('.cssCode').css('z-index', '1');
+        $('.jsCode').css('z-index', '2');
+        $($('.editorHeader').children()[0]).css('background-color', '').css('color', 'black');
+        $($('.editorHeader').children()[1]).css('background-color', '').css('color', 'black');
+        $($('.editorHeader').children()[2]).css('background-color', 'green').css('color', 'white');
+      });
+    });
+  });
 
   return common;
 }(window));

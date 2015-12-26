@@ -4,6 +4,27 @@ block content
     link(rel='stylesheet', href='/bower_components/CodeMirror/addon/lint/lint.css')
     link(rel='stylesheet', href='/bower_components/CodeMirror/theme/monokai.css')
     link(rel='stylesheet', href='/css/ubuntu.css')
+    style.
+      .htmlCode {
+        z-index: 2;
+      }
+      .cssCode {
+        z-index: 1;
+      }
+      .jsCode {
+        z-index: 1;
+      }
+      .partEditor {
+        position: relative;
+        top: 0;
+      }
+      .editorHeader {
+        display: flex;
+      }
+      .editorHeader > * {
+        text-align: center;
+        flex: 1 0 auto;
+      }
     .row.courseware-height
         .col-md-3.col-lg-3
             .scroll-locker(id = "scroll-locker")
@@ -47,7 +68,15 @@ block content
         .col-md-5.col-lg-6
             .editorScrollDiv(style = "overflow-y: auto; overflow-x: hidden;")
                     #mainEditorPanel
-                        form.code
+                        div.editorHeader
+                          h4 HTML &thinsp;&thinsp;
+                          h4 CSS &thinsp;&thinsp;
+                          h4 JS &thinsp;&thinsp;
+                        .editors
+                          textarea#htmlCode
+                          textarea#cssCode
+                          textarea#jsCode
+                        form.code(style='display: none;')
                             .codeMirrorView
                                 textarea#codeEditor(autofocus=true, style='display: none;')
         .col-md-4.col-lg-3

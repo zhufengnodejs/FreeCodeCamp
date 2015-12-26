@@ -16,7 +16,8 @@ window.common = (function(global) {
   let attempts = 0;
 
   common.executeChallenge$ = function executeChallenge$() {
-    const code = common.editor.getValue();
+    //const code = common.editor.getValue();
+    const code = "<style>" + common.cssCode.getValue() + "</style><script>" + common.jsCode.getValue() + "</script>" + common.htmlCode.getValue();
     const originalCode = code;
     const head = common.arrayToNewLineString(common.head);
     const tail = common.arrayToNewLineString(common.tail);
