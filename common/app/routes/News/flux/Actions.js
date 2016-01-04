@@ -35,11 +35,10 @@ export default Actions({
       if (err) {
         debug('an error occurred fetching news', err);
       }
-      console.log(news);
       newsActions.setNews({
         set: {
           news: news,
-          currentHike: getCurrentNewsPiece(news, dashedName)
+          currentNewsPiece: news
         }
       });
     });

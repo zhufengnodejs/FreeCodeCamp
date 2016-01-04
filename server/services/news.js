@@ -14,7 +14,7 @@ export default function newsService(app) {
       };
 
       debug('params', params);
-      if (params) {
+      if (params && params.dashedName) {
         assign(query.where, {
           dashedName: { like: params.dashedName, options: 'i' }
         });

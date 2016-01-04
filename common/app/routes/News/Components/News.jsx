@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { Row } from 'react-bootstrap';
 import { contain } from 'thundercats-react';
-// import debugFactory from 'debug';
+import debugFactory from 'debug';
 
-import HikesMap from './NewsMap.jsx';
+import NewsMap from './NewsMap.jsx';
 
-// const debug = debugFactory('freecc:news');
+const debug = debugFactory('freecc:news');
 
 export default contain(
   {
@@ -38,7 +38,7 @@ export default contain(
     renderMap(news) {
       console.log(news);
       return (
-        <HikesMap hikes={ news }/>
+        <NewsMap news={ news }/>
       );
     },
 

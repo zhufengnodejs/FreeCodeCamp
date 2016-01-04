@@ -10,8 +10,8 @@ export default Cat()
     cat.register(AppActions, null, services);
     cat.register(AppStore, null, cat);
 
-    /*cat.register(NewsActions, null, services);
-    cat.register(NewsStore, null, cat);*/
+    cat.register(NewsActions, null, services);
+    cat.register(NewsStore, null, cat);
 
     cat.register(HikesActions, null, services);
     cat.register(HikesStore, null, cat);

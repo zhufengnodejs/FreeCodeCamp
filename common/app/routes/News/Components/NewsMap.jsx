@@ -16,18 +16,22 @@ export default React.createClass({
     const {
       news
       } = this.props;
-    console.log(news);
+    console.log('news', news);
 
-    /*const newsElements = news.map(({ title, dashedName}) => {
+    const newsElements = news.map(( newsPiece ) => {
+
+      const description = typeof newsPiece.description !== 'undefined' ? <p>{ newsPiece.description }</p> : "";
+
       return (
-        <ListGroupItem key={ dashedName }>
-          <Link to={ `/news/${dashedName}` }>
-            <h3>{ title }</h3>
+        <ListGroupItem key={ newsPiece.id }>
+          <Link to={ newsPiece.link }>
+            <h3>{ newsPiece.headline }</h3>
+            { description }
           </Link>
         </ListGroupItem>
       );
-    });*/
-    const newsElements = [];
+    });
+
     return (
       <div>
         <Panel>
