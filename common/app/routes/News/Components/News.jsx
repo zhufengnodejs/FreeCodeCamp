@@ -3,15 +3,17 @@ import { Row } from 'react-bootstrap';
 import { contain } from 'thundercats-react';
 // import debugFactory from 'debug';
 
-// const debug = debugFactory('freecc:hikes');
+import HikesMap from './NewsMap.jsx';
+
+// const debug = debugFactory('freecc:news');
 
 export default contain(
   {
     store: 'newsStore',
     actions: ['appActions'],
     fetchAction: 'newsActions.fetchNews',
-    getPayload: ({ hikes, params }) => ({
-      isPrimed: (hikes && !!hikes.length),
+    getPayload: ({ news, params }) => ({
+      isPrimed: (news && !!news.length),
       dashedName: params.dashedName
     }),
     shouldContainerFetch(props, nextProps) {
@@ -19,23 +21,42 @@ export default contain(
     }
   },
   React.createClass({
-    displayName: 'fetchNews',
+    displayName: 'News',
 
     propTypes: {
-
+      appActions: PropTypes.object,
+      children: PropTypes.element,
+      currentHike: PropTypes.object,
+      hikes: PropTypes.array
     },
 
     componentWillMount() {
       const { appActions } = this.props;
-      appActions.setTitle('fetchNews');
+      appActions.setTitle('News');
+    },
+
+    renderMap(news) {
+      console.log(news);
+      return (
+        <HikesMap hikes={ news }/>
+      );
+    },
+
+    renderChild(children, news, currentNewsPiece) {
+      if (!children) {
+        return null;
+      }
+      return React.cloneElement(children, { news, currentNewsPiece });
     },
 
     render() {
+      const { news, children, currentNewsPiece } = this.props;
       const preventOverflow = { overflow: 'hidden' };
       return (
         <div>
           <Row style={ preventOverflow }>
-            <p>test</p>
+            { this.renderChild(children, news, currentNewsPiece) ||
+            this.renderMap(news) }
           </Row>
         </div>
       );

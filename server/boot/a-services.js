@@ -1,13 +1,16 @@
 import Fetchr from 'fetchr';
+import getNewsService from '../services/news';
 import getHikesService from '../services/hikes';
 import getJobServices from '../services/job';
 import getUserServices from '../services/user';
 
 export default function bootServices(app) {
+  const newsService = getNewsService(app);
   const hikesService = getHikesService(app);
   const jobServices = getJobServices(app);
   const userServices = getUserServices(app);
 
+  Fetchr.registerFetcher(newsService);
   Fetchr.registerFetcher(hikesService);
   Fetchr.registerFetcher(jobServices);
   Fetchr.registerFetcher(userServices);

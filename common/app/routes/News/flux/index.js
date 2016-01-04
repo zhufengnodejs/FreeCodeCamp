@@ -1,2 +1,2 @@
-export { default as NewsActions } from './Actions';
-export { default as NewsStore } from './Store';
+export { default as NewsActions } from './Actions.js';
+export { default as NewsStore } from './Store.js';

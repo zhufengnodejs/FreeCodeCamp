@@ -1,7 +1,8 @@
 import { Store } from 'thundercats';
 
 const initialValue = {
-  news: []
+  news: [],
+  currentNews: {}
 };
 
 export default Store({
@@ -15,4 +16,4 @@ export default Store({
 
     return newsStore;
   }
-});
+}).static({ displayName: 'NewsStore' });

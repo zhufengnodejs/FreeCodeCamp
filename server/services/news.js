@@ -10,16 +10,15 @@ export default function newsService(app) {
     name: 'news',
     read: (req, resource, params, config, cb) => {
       const query = {
-        limit: 10,
         order: 'suborder ASC'
       };
 
       debug('params', params);
-      /*if (params) {
+      if (params) {
         assign(query.where, {
           dashedName: { like: params.dashedName, options: 'i' }
         });
-      }*/
+      }
       debug('query', query);
       Story.find(query, (err, stories) => {
         if (err) {
