@@ -11,14 +11,7 @@ export default contain(
   {
     store: 'newsStore',
     actions: ['appActions'],
-    fetchAction: 'newsActions.fetchNews',
-    getPayload: ({ news, params }) => ({
-      isPrimed: (news && !!news.length),
-      dashedName: params.dashedName
-    }),
-    shouldContainerFetch(props, nextProps) {
-      return props.params.dashedName !== nextProps.params.dashedName;
-    }
+    fetchAction: 'newsActions.fetchNews'
   },
   React.createClass({
     displayName: 'News',
@@ -26,8 +19,7 @@ export default contain(
     propTypes: {
       appActions: PropTypes.object,
       children: PropTypes.element,
-      currentHike: PropTypes.object,
-      hikes: PropTypes.array
+      news: PropTypes.array
     },
 
     componentWillMount() {
@@ -36,7 +28,6 @@ export default contain(
     },
 
     renderMap(news) {
-      console.log(news);
       return (
         <NewsMap news={ news }/>
       );

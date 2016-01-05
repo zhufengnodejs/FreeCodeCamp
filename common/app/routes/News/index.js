@@ -1,13 +1,13 @@
 import News from './components/News.jsx';
-import NewsPiece from './components/NewsPiece.jsx';
+import SubmitNews from './components/SubmitNews.jsx';
 
 export default {
   path: 'news',
   component: News,
   childRoutes: [
     {
-      path: ':dashedName',
-      component: NewsPiece
+      path: ':submit',
+      component: SubmitNews
     }
-    ]
+  ]
 };
