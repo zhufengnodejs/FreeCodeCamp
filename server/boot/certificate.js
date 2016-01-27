@@ -25,7 +25,7 @@ import {
 
 import certTypes from '../utils/certTypes.json';
 
-const debug = debugFactory('freecc:certification');
+const debug = debugFactory('fcc:certification');
 const sendMessageToNonUser = ifNoUserSend(
   'must be logged in to complete.'
 );
