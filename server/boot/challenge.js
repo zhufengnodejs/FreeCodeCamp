@@ -45,6 +45,10 @@ function isChallengeCompleted(user, challengeId) {
 }
 
 /*
+  this function takes the browser language and the challenge and attempts to find the version of the challenge that is required
+*/
+
+/*
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
@@ -112,10 +116,9 @@ function shouldNotFilterComingSoon({ isComingSoon, isBeta: challengeIsBeta }) {
     (isBeta && challengeIsBeta);
 }
 
-function getRenderData$(user, challenge$, origChallengeName, solution) {
+function getRenderData$(user, browserLanguage, challenge$, origChallengeName, solution) {
   const challengeName = unDasherize(origChallengeName)
     .replace(challengesRegex, '');
-
   const testChallengeName = new RegExp(challengeName, 'i');
   debug('looking for %s', testChallengeName);
 
@@ -473,8 +476,10 @@ module.exports = function(app) {
   function showChallenge(req, res, next) {
     const solution = req.query.solution;
     const challengeName = req.params.challengeName.replace(challengesRegex, '');
+    const browserLanguage = req.headers["accept-language"].split(";")[1].split(",")[1];
+    const langTest = new RegExp(browserLanguage, 'gi');
 
-    getRenderData$(req.user, challenge$, challengeName, solution)
+    getRenderData$(req.user, browserLanguage, challenge$, challengeName, solution)
       .subscribe(
         ({ type, redirectUrl, message, data }) => {
           if (message) {
@@ -489,6 +494,22 @@ module.exports = function(app) {
           var view = challengeView[data.challengeType];
           if (data.id) {
             res.cookie('currentChallengeId', data.id);
+          }
+          const nameToUse = Object.keys(data).filter((key) => {
+            if (key.match(/name/gi) && key.match(/name/gi).length > 0 && !key.match(/dashed/gi)) {
+              return (key.split('name')[1].match(langTest) && key.split('name')[1].match(langTest).length > 0)
+            }
+          });
+          const descriptionToUse = Object.keys(data).filter((key) => {
+            if (key.match(/description/gi) && key.match(/description/gi).length > 0) {
+              return (key.split('description')[1].match(langTest) && key.split('description')[1].match(langTest).length > 0)
+            }
+          });
+          if (data.hasOwnProperty(nameToUse)) {
+            data.name = data[nameToUse];
+          }
+          if (data.hasOwnProperty(descriptionToUse)) {
+            data.description = data[descriptionToUse];
           }
           res.render(view, data);
         },
