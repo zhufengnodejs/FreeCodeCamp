@@ -476,7 +476,7 @@ module.exports = function(app) {
   function showChallenge(req, res, next) {
     const solution = req.query.solution;
     const challengeName = req.params.challengeName.replace(challengesRegex, '');
-    const browserLanguage = req.headers["accept-language"].split(";")[1].split(",")[1];
+    const browserLanguage = req.headers['accept-language'].split(';')[1].split(',')[1];
     const langTest = new RegExp(browserLanguage, 'gi');
 
     getRenderData$(req.user, browserLanguage, challenge$, challengeName, solution)
@@ -497,7 +497,7 @@ module.exports = function(app) {
           }
           const nameToUse = Object.keys(data).filter((key) => {
             if (key.match(/name/gi) && key.match(/name/gi).length > 0 && !key.match(/dashed/gi)) {
-              return (key.split('name')[1].match(langTest) && key.split('name')[1].match(langTest).length > 0)
+              return (key.split('name')[1].match(langTest) && key.split('name')[1].match(langTest).length > 0);
             }
           });
           const descriptionToUse = Object.keys(data).filter((key) => {
