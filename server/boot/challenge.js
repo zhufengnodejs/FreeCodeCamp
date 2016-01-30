@@ -502,7 +502,7 @@ module.exports = function(app) {
           });
           const descriptionToUse = Object.keys(data).filter((key) => {
             if (key.match(/description/gi) && key.match(/description/gi).length > 0) {
-              return (key.split('description')[1].match(langTest) && key.split('description')[1].match(langTest).length > 0)
+              return (key.split('description')[1].match(langTest) && key.split('description')[1].match(langTest).length > 0);
             }
           });
           if (data.hasOwnProperty(nameToUse)) {
