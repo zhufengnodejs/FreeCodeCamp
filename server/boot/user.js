@@ -125,6 +125,26 @@ module.exports = function(app) {
 
   router.get('/:username', returnUser);
 
+  // Route for updating the currently logged in users' preferred language
+
+  router.post('/updateLang', ifNoUser401, function(req, res) {
+    User.findById(req.accessToken.userId, function(err, user) {
+      if (err) {
+        debug('updateLang', err);
+        return res.end(500);
+      }
+      user.preferredLanguage = req.body.newLang;
+      user.save(function(err, inst) {
+        if (err) {
+          debug(err);
+          return res.json(err);
+        } else {
+          return res.json(inst);
+        }
+      });
+    });
+  });
+
   app.use(router);
 
   function getSignin(req, res) {

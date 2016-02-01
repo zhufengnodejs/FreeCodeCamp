@@ -225,5 +225,6 @@
       "property": "giveBrowniePoints"
     }
   ],
+  "preferredLanguage": {"type": "string", "default": "en"},
   "methods": []
 }

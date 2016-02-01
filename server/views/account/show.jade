@@ -31,6 +31,7 @@ block content
                         a.btn.btn-lg.btn-block.btn-google-plus.btn-link-social(href='/link/google')
                             i.fa.fa-google-plus
                             | Add my Google+ to my portfolio
+
         .spacer
     h1.text-center #{username}'s code portfolio
     hr
@@ -193,6 +194,14 @@ block content
         h1.text-center Manage your account
         hr
         .col-xs-12
+          .form-group(style = "width: 400px; display: block; margin: 15px auto;")
+            label(for = "lang") Preferred Challenge Language:
+            select.form-control#lang
+              option(value = "",  disabled = true, selected = true) -------
+              option(value = "en") English
+              option(value = "es") Español
+              option(value = "de") Deutsch
+        .col-xs-12
             a.btn.btn-lg.btn-block.btn-primary.btn-link-social(href='/logout')
                 | Sign me out of Free Code Camp
         .col-xs-12
@@ -240,3 +249,15 @@ block content
                             input(type='hidden', name='_csrf', value=_csrf)
                             button.btn.btn-danger.btn-block(type='submit')
                                 | I am 100% sure I want to delete my account and all of my progress
+
+    script.
+      $(document).ready(function(){
+        $('#lang').on('change', function(e){
+          var newPreferredLanguage = $(this).val();
+          if(newPreferredLanguage !== "" && newPreferredLanguage !== "#{user.preferredLanguage}") {
+            $.post('/updateLang', {newLang: newPreferredLanguage}, function (response) {
+              console.log(response);
+            });
+          }
+        });
+      });
