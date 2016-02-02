@@ -45,10 +45,6 @@ function isChallengeCompleted(user, challengeId) {
 }
 
 /*
-  this function takes the browser language and the challenge and attempts to find the version of the challenge that is required
-*/
-
-/*
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
@@ -476,7 +472,9 @@ module.exports = function(app) {
   function showChallenge(req, res, next) {
     const solution = req.query.solution;
     const challengeName = req.params.challengeName.replace(challengesRegex, '');
-    const browserLanguage = req.headers['accept-language'].split(';')[1].split(',')[1];
+    const browserLanguage =
+      typeof req.lang !== "undefined" && req.lang !== "" ? req.lang :
+        (typeof req.user.language !== "undefined" && req.user.language !== "" ? req.user.language : 'en');
     const langTest = new RegExp(browserLanguage, 'gi');
 
     getRenderData$(req.user, browserLanguage, challenge$, challengeName, solution)

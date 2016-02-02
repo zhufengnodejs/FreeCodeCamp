@@ -22,7 +22,10 @@ module.exports = function(app) {
 
   function index(req, res) {
     if (req.user) {
-      return res.redirect('/challenges/current-challenge');
+      var url = typeof req.lang !== "undefined" && req.lang !== ""
+        ? "/" + req.lang + '/challenges/current-challenge'
+        : '/challenges/current-challenge';
+      return res.redirect(url);
     }
     res.render('home', { title: message });
   }

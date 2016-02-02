@@ -33,6 +33,17 @@ app.set('view engine', 'jade');
 app.use(loopback.token());
 app.disable('x-powered-by');
 
+app.use(function(req, res, next){
+  req.url = req.url.split('/');
+  req.url.shift();
+  if(req.url[0].match(/^(en|es|de)$/gi)){
+    req.lang = req.url[0];
+    req.url.shift();
+  }
+  req.url = '/'+ req.url.join('/');
+  next();
+});
+
 // adds passport initialization after session middleware phase is complete
 passportConfigurator.init();
 

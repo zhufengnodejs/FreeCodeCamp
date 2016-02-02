@@ -176,6 +176,10 @@
     },
     "timezone": {
       "type": "string"
+    },
+    "language": {
+      "type": "string",
+      "default": "en"
     }
   },
   "validations": [],
@@ -225,6 +229,5 @@
       "property": "giveBrowniePoints"
     }
   ],
-  "preferredLanguage": {"type": "string", "default": "en"},
   "methods": []
 }

@@ -256,7 +256,12 @@ block content
           var newPreferredLanguage = $(this).val();
           if(newPreferredLanguage !== "" && newPreferredLanguage !== "#{user.preferredLanguage}") {
             $.post('/updateLang', {newLang: newPreferredLanguage}, function (response) {
-              console.log(response);
+              if(response.success){
+                alert('changed');
+              }
+              else {
+                console.error(response.error);
+              }
             });
           }
         });

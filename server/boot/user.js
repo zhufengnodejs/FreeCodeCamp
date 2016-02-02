@@ -128,20 +128,13 @@ module.exports = function(app) {
   // Route for updating the currently logged in users' preferred language
 
   router.post('/updateLang', ifNoUser401, function(req, res) {
-    User.findById(req.accessToken.userId, function(err, user) {
+    User.updateAll({id: req.accessToken.userId}, {language: req.body.newLang}, function(err) {
       if (err) {
-        debug('updateLang', err);
-        return res.end(500);
+        debug(err);
+        return res.json({success: false, error: err});
+      } else {
+        return res.json({success: true, error: null});
       }
-      user.preferredLanguage = req.body.newLang;
-      user.save(function(err, inst) {
-        if (err) {
-          debug(err);
-          return res.json(err);
-        } else {
-          return res.json(inst);
-        }
-      });
     });
   });
 
