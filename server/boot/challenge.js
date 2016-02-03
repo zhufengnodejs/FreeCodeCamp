@@ -475,9 +475,7 @@ module.exports = function(app) {
   function showChallenge(req, res, next) {
     const solution = req.query.solution;
     const challengeName = req.params.challengeName.replace(challengesRegex, '');
-    const browserLanguage =
-      typeof req.lang !== "undefined" && req.lang !== "" ? req.lang :
-        (typeof req.user.language !== "undefined" && req.user.language !== "" ? req.user.language : 'en');
+    const browserLanguage = typeof req.lang !== "undefined" && req.lang !== "" ? req.lang : typeof req.user.language !== "undefined" && req.user.language !== "" ? req.user.language : 'en';
     const langTest = new RegExp(browserLanguage, 'gi');
 
     getRenderData$(req.user, browserLanguage, challenge$, challengeName, solution)
@@ -497,12 +495,12 @@ module.exports = function(app) {
             res.cookie('currentChallengeId', data.id);
           }
           const nameToUse = Object.keys(data).filter((key) => {
-            if (key.match(/name/gi) && key.match(/name/gi).length > 0 && !key.match(/dashed/gi)) {
+            if (key.match(/^name/gi) && key.match(/^name/gi).length > 0) {
               return (key.split('name')[1].match(langTest) && key.split('name')[1].match(langTest).length > 0);
             }
           });
           const descriptionToUse = Object.keys(data).filter((key) => {
-            if (key.match(/description/gi) && key.match(/description/gi).length > 0) {
+            if (key.match(/^description/gi) && key.match(/^description/gi).length > 0) {
               return (key.split('description')[1].match(langTest) && key.split('description')[1].match(langTest).length > 0);
             }
           });
